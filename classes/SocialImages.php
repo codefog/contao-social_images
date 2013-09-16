@@ -3,10 +3,10 @@
 /**
  * social_images extension for Contao Open Source CMS
  *
- * Copyright (C) 2013 Codefog
+ * Copyright (C) 2013 Codefog Ltd
  *
  * @package social_images
- * @link    http://codefog.pl
+ * @author  Codefog Ltd <http://codefog.pl>
  * @author  Kamil Kuzminski <kamil.kuzminski@codefog.pl>
  * @license LGPL
  */
@@ -82,6 +82,14 @@ class SocialImages extends \Frontend
 
 		foreach ($arrImages as $strImage)
 		{
+			list($width, $height) = getimagesize(TL_ROOT . '/' . $strImage);
+
+			// Skip small images
+			if ($width < 200 || $height < 200)
+			{
+				continue;
+			}
+
 			if ($objPage->outputFormat == 'xhtml')
 			{
 				$GLOBALS['TL_HEAD'][] = '<meta property="og:image" content="' . $strHost . '/' . $strImage . '" />';
