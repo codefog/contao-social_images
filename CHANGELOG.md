@@ -1,6 +1,13 @@
 social_images Changelog
 =======================
 
+Version 2.0.0 stable (2013-??-??)
+---------------------------------
+
+### Improved
+- The extension is now compatible with Contao 3.2
+
+
 Version 1.0.1 stable (2013-09-16)
 ---------------------------------
 

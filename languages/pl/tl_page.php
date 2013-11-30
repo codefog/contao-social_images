@@ -21,4 +21,4 @@ $GLOBALS['TL_LANG']['tl_page']['socialImage'] = array('Obrazek społecznościowy
 /**
  * Palettes
  */
-$GLOBALS['TL_LANG']['tl_page']['socialimages_legend'] = 'Obrakzi społecznościowe';
+$GLOBALS['TL_LANG']['tl_page']['socialimages_legend'] = 'Obrazki społecznościowe';

@@ -29,8 +29,6 @@ $GLOBALS['TL_DCA']['tl_page']['fields']['socialImage'] = array
 	'label'                   => &$GLOBALS['TL_LANG']['tl_page']['socialImage'],
 	'exclude'                 => true,
 	'inputType'               => 'fileTree',
-	'foreignKey'              => 'tl_files.id',
 	'eval'                    => array('files'=>true, 'filesOnly'=>true, 'fieldType'=>'radio', 'extensions'=>$GLOBALS['TL_CONFIG']['validImageTypes'], 'tl_class'=>'clr'),
-	'sql'                     => "int(10) unsigned NOT NULL default '0'",
-	'relation'                => array('type'=>'hasOne', 'load'=>'eager')
+	'sql'                     => "binary(16) NULL"
 );
