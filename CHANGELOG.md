@@ -1,7 +1,7 @@
 social_images Changelog
 =======================
 
-Version 2.0.0 stable (2013-??-??)
+Version 2.0.0 stable (2013-11-30)
 ---------------------------------
 
 ### Improved
