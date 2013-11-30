@@ -3,10 +3,10 @@
 /**
  * social_images extension for Contao Open Source CMS
  *
- * Copyright (C) 2013 Codefog Ltd
+ * Copyright (C) 2013 Codefog
  *
  * @package social_images
- * @author  Codefog Ltd <http://codefog.pl>
+ * @author  Codefog <http://codefog.pl>
  * @author  Kamil Kuzminski <kamil.kuzminski@codefog.pl>
  * @license LGPL
  */
@@ -21,4 +21,4 @@ $GLOBALS['TL_LANG']['tl_page']['socialImage'] = array('Obrazek społecznościowy
 /**
  * Palettes
  */
-$GLOBALS['TL_LANG']['tl_page']['socialimages_legend'] = 'Obrakzi społecznościowe';
+$GLOBALS['TL_LANG']['tl_page']['socialimages_legend'] = 'Obrazki społecznościowe';

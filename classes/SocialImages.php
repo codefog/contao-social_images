@@ -3,10 +3,10 @@
 /**
  * social_images extension for Contao Open Source CMS
  *
- * Copyright (C) 2013 Codefog Ltd
+ * Copyright (C) 2013 Codefog
  *
  * @package social_images
- * @author  Codefog Ltd <http://codefog.pl>
+ * @author  Codefog <http://codefog.pl>
  * @author  Kamil Kuzminski <kamil.kuzminski@codefog.pl>
  * @license LGPL
  */
@@ -34,7 +34,7 @@ class SocialImages extends \Frontend
 		}
 
 		// Add the current page image
-		if ($objPage->socialImage && ($objImage = $objPage->getRelated('socialImage')) !== null && is_file(TL_ROOT . '/' . $objImage->path))
+		if ($objPage->socialImage && ($objImage = \FilesModel::findByUuid($objPage->socialImage)) !== null && is_file(TL_ROOT . '/' . $objImage->path))
 		{
 			if (is_array($GLOBALS['SOCIAL_IMAGES']))
 			{
@@ -55,7 +55,7 @@ class SocialImages extends \Frontend
 				while ($objTrail->next())
 				{
 					// Add the image
-					if ($objTrail->socialImage && ($objImage = $objTrail->getRelated('socialImage')) !== null && is_file(TL_ROOT . '/' . $objImage->path))
+					if ($objTrail->socialImage && ($objImage = \FilesModel::findByUuid($objPage->socialImage)) !== null && is_file(TL_ROOT . '/' . $objImage->path))
 					{
 						if (is_array($GLOBALS['SOCIAL_IMAGES']))
 						{
