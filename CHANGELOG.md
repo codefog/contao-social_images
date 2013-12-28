@@ -1,6 +1,13 @@
 social_images Changelog
 =======================
 
+Version 2.1.0 stable (2013-??-??)
+---------------------------------
+
+### Improved
+- Added the German translation (thanks to Didier Federer)
+
+
 Version 2.0.0 stable (2013-11-30)
 ---------------------------------
 
