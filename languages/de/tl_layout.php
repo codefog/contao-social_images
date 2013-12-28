@@ -8,18 +8,12 @@
  * @package social_images
  * @author  Codefog <http://codefog.pl>
  * @author  Kamil Kuzminski <kamil.kuzminski@codefog.pl>
+ * @author  Didier Federer <d.federer@designpilot.ch>
  * @license LGPL
  */
 
 
 /**
- * Extension version
+ * Fields
  */
-@define('SOCIAL_IMAGES_VERSION', '2.1');
-@define('SOCIAL_IMAGES_BUILD', '0');
-
-
-/**
- * Hooks
- */
-$GLOBALS['TL_HOOKS']['generatePage'][] = array('SocialImages', 'addSocialImages');
+$GLOBALS['TL_LANG']['tl_layout']['socialImages'] = array('Social Images aktivieren', 'Aktiviert die Social Images, welche auf Facebook und Google+ genutzt werden können.');
