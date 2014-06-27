@@ -1,13 +1,6 @@
 social_images Changelog
 =======================
 
-Version 3.0.0 stable (2014-06-??)
----------------------------------
-
-### Improved
-- Reworked the image gathering mechanism
-
-
 Version 2.1.0 stable (2013-12-28)
 ---------------------------------
 

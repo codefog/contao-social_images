@@ -20,15 +20,6 @@
 
 
 /**
- * Content elements that are supported by social images
- */
-$GLOBALS['SOCIAL_IMAGES_CE'] = array('text', 'image', 'gallery', 'player', 'youtube');
-
-
-/**
  * Hooks
  */
-$GLOBALS['TL_HOOKS']['getAllEvents'][] = array('SocialImages', 'collectEventImages');
-$GLOBALS['TL_HOOKS']['getContentElement'][] = array('SocialImages', 'collectContentElementImages');
 $GLOBALS['TL_HOOKS']['generatePage'][] = array('SocialImages', 'addSocialImages');
-$GLOBALS['TL_HOOKS']['parseArticles'][] = array('SocialImages', 'collectNewsImages');

@@ -15,7 +15,7 @@
 /**
  * Extend a tl_layout palette
  */
-$GLOBALS['TL_DCA']['tl_layout']['palettes']['default'] = str_replace('head;', 'head;{socialImages_legend:hide},socialImages,socialImages_limit,socialImages_size;', $GLOBALS['TL_DCA']['tl_layout']['palettes']['default']);
+$GLOBALS['TL_DCA']['tl_layout']['palettes']['default'] = str_replace('cssClass,', 'cssClass,socialImages,', $GLOBALS['TL_DCA']['tl_layout']['palettes']['default']);
 
 
 /**
@@ -26,26 +26,6 @@ $GLOBALS['TL_DCA']['tl_layout']['fields']['socialImages'] = array
 	'label'                   => &$GLOBALS['TL_LANG']['tl_layout']['socialImages'],
 	'exclude'                 => true,
 	'inputType'               => 'checkbox',
-	'eval'                    => array('tl_class'=>'clr'),
+	'eval'                    => array('tl_class'=>'w50'),
 	'sql'                     => "char(1) NOT NULL default ''"
-);
-
-$GLOBALS['TL_DCA']['tl_layout']['fields']['socialImages_limit'] = array
-(
-	'label'                   => &$GLOBALS['TL_LANG']['tl_layout']['socialImages_limit'],
-	'default'                 => 10,
-	'exclude'                 => true,
-	'inputType'               => 'text',
-	'eval'                    => array('rgxp'=>'digit', 'tl_class'=>'w50'),
-	'sql'                     => "smallint(5) unsigned NOT NULL default '0'"
-);
-
-$GLOBALS['TL_DCA']['tl_layout']['fields']['socialImages_size'] = array
-(
-	'label'                   => &$GLOBALS['TL_LANG']['tl_layout']['socialImages_size'],
-	'default'                 => array('200', '200'),
-	'exclude'                 => true,
-	'inputType'               => 'text',
-	'eval'                    => array('multiple'=>true, 'size'=>2, 'tl_class'=>'w50'),
-	'sql'                     => "varchar(64) NOT NULL default ''"
 );
