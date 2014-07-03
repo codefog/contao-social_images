@@ -1,6 +1,13 @@
 social_images Changelog
 =======================
 
+Version 3.0.1 stable (2014-07-??)
+---------------------------------
+
+### Improved
+- Fixed the disappearing content elements (see #4)
+
+
 Version 3.0.0 stable (2014-06-27)
 ---------------------------------
 

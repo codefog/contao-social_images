@@ -121,7 +121,7 @@ class SocialImages extends \Controller
     {
         if (!in_array($objModel->type, $GLOBALS['SOCIAL_IMAGES_CE']))
         {
-            return;
+            return $strBuffer;
         }
 
         switch ($objModel->type)
@@ -296,7 +296,7 @@ class SocialImages extends \Controller
 
                             // Send a 404 header
                             header('HTTP/1.1 404 Not Found');
-                            return;
+                            return $strBuffer;
                         }
 
                         // Set limit and offset
@@ -368,7 +368,7 @@ class SocialImages extends \Controller
                 {
                     if (!$arrData['addImage'])
                     {
-                        return;
+                        return $arrEvents;
                     }
 
                     $objFile = \FilesModel::findByPk($arrData['singleSRC']);
