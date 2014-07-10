@@ -1,6 +1,13 @@
 social_images Changelog
 =======================
 
+Version 3.1.0 stable (2014-??-??)
+---------------------------------
+
+### Improved
+- Added the Italian translation (thanks to Paolo Battistella)
+
+
 Version 3.0.1 stable (2014-07-03)
 ---------------------------------
 
