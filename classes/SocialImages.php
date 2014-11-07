@@ -54,7 +54,7 @@ class SocialImages extends \Controller
                 while ($objTrail->next())
                 {
                     // Add the image
-                    if ($objTrail->socialImage && ($objImage = \FilesModel::findByUuid($objPage->socialImage)) !== null && is_file(TL_ROOT . '/' . $objImage->path))
+                    if ($objTrail->socialImage && ($objImage = \FilesModel::findByUuid($objTrail->socialImage)) !== null && is_file(TL_ROOT . '/' . $objImage->path))
                     {
                         if (is_array($GLOBALS['SOCIAL_IMAGES']))
                         {

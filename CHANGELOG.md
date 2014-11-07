@@ -1,6 +1,15 @@
 social_images Changelog
 =======================
 
+Version 3.1.0 stable (2014-11-07)
+---------------------------------
+
+### Improved
+- Added the Italian translation (thanks to Paolo Battistella)
+
+### Fixed
+- Fixed the bug with image not being inherited from page trail (see #6)
+
 Version 3.0.1 stable (2014-07-03)
 ---------------------------------
 
