@@ -1,6 +1,13 @@
 social_images Changelog
 =======================
 
+Version 3.1.1 stable (2014-12-??)
+---------------------------------
+
+### Improved
+- Added the composer.json file
+
+
 Version 3.1.0 stable (2014-11-07)
 ---------------------------------
 
