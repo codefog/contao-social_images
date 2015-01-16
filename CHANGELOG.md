@@ -7,6 +7,9 @@ Version 3.1.2 stable (2015-01-??)
 ### Improved
 - Added the .gitignore file
 
+### Fixed
+- Fixed the wrong image path if website was in a subfolder
+
 
 Version 3.1.1 stable (2014-12-18)
 ---------------------------------
