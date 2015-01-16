@@ -85,7 +85,7 @@ class SocialImages extends \Controller
         }
 
         $arrDimensions = deserialize($objLayout->socialImages_size, true);
-        $strHost = (\Environment::get('ssl') ? 'https://' : 'http://') . \Environment::get('host');
+        $strHost = (\Environment::get('ssl') ? 'https://' : 'http://') . \Environment::get('host') . TL_PATH;
 
         foreach ($arrImages as $strImage)
         {
