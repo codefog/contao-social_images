@@ -32,3 +32,4 @@ $GLOBALS['TL_HOOKS']['getAllEvents'][] = array('SocialImages', 'collectEventImag
 $GLOBALS['TL_HOOKS']['getContentElement'][] = array('SocialImages', 'collectContentElementImages');
 $GLOBALS['TL_HOOKS']['generatePage'][] = array('SocialImages', 'addSocialImages');
 $GLOBALS['TL_HOOKS']['parseArticles'][] = array('SocialImages', 'collectNewsImages');
+$GLOBALS['TL_HOOKS']['getPageLayout'][] = array('SocialImages', 'collectPageImages');
