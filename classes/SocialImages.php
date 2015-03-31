@@ -21,11 +21,11 @@ class SocialImages extends \Controller
 
     /**
      * Add the social images to the page
-     * @param object
-     * @param object
-     * @param object
+     *
+     * @param \PageModel   $objPage
+     * @param \LayoutModel $objLayout
      */
-    public function addSocialImages(\PageModel $objPage, \LayoutModel $objLayout, \PageRegular $objPageRegular)
+    public function addSocialImages(\PageModel $objPage, \LayoutModel $objLayout)
     {
         if (!is_array($GLOBALS['SOCIAL_IMAGES']) || empty($GLOBALS['SOCIAL_IMAGES']))
         {
@@ -71,9 +71,9 @@ class SocialImages extends \Controller
     /**
      * Collect the images from page
      * @param object
-     * @param string
+     * @param object
      */
-    public function collectPageImages($objPage, $objLayout, $objPageRegular)
+    public function collectPageImages($objPage, $objLayout)
     {
         if (!$objLayout->socialImages)
         {
