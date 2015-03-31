@@ -21,11 +21,59 @@ class SocialImages extends \Controller
 
     /**
      * Add the social images to the page
-     * @param object
+     *
+     * @param \PageModel   $objPage
+     * @param \LayoutModel $objLayout
+     */
+    public function addSocialImages(\PageModel $objPage, \LayoutModel $objLayout)
+    {
+        if (!is_array($GLOBALS['SOCIAL_IMAGES']) || empty($GLOBALS['SOCIAL_IMAGES']))
+        {
+            return;
+        }
+
+        $arrImages = array_unique($GLOBALS['SOCIAL_IMAGES']);
+
+        // Limit the images
+        if ($objLayout->socialImages_limit > 0)
+        {
+            $arrImages = array_slice($arrImages, 0, $objLayout->socialImages_limit);
+        }
+
+        $arrDimensions = deserialize($objLayout->socialImages_size, true);
+        $strHost = (\Environment::get('ssl') ? 'https://' : 'http://') . \Environment::get('host') . TL_PATH;
+
+        foreach ($arrImages as $strImage)
+        {
+            // Check the dimensions limit
+            if ($arrDimensions[0] > 0 && $arrDimensions[1] > 0)
+            {
+                list($width, $height) = getimagesize(TL_ROOT . '/' . $strImage);
+
+                if ($width < $arrDimensions[0] || $height < $arrDimensions[1])
+                {
+                    continue;
+                }
+            }
+
+            if ($objPage->outputFormat == 'xhtml')
+            {
+                $GLOBALS['TL_HEAD'][] = '<meta property="og:image" content="' . $strHost . '/' . $strImage . '" />';
+            }
+            else
+            {
+                $GLOBALS['TL_HEAD'][] = '<meta property="og:image" content="' . $strHost . '/' . $strImage . '">';
+            }
+        }
+    }
+
+
+    /**
+     * Collect the images from page
      * @param object
      * @param object
      */
-    public function addSocialImages(\PageModel $objPage, \LayoutModel $objLayout, \PageRegular $objPageRegular)
+    public function collectPageImages($objPage, $objLayout)
     {
         if (!$objLayout->socialImages)
         {
@@ -68,45 +116,6 @@ class SocialImages extends \Controller
                         break;
                     }
                 }
-            }
-        }
-
-        if (!is_array($GLOBALS['SOCIAL_IMAGES']) || empty($GLOBALS['SOCIAL_IMAGES']))
-        {
-            return;
-        }
-
-        $arrImages = array_unique($GLOBALS['SOCIAL_IMAGES']);
-
-        // Limit the images
-        if ($objLayout->socialImages_limit > 0)
-        {
-            $arrImages = array_slice($arrImages, 0, $objLayout->socialImages_limit);
-        }
-
-        $arrDimensions = deserialize($objLayout->socialImages_size, true);
-        $strHost = (\Environment::get('ssl') ? 'https://' : 'http://') . \Environment::get('host') . TL_PATH;
-
-        foreach ($arrImages as $strImage)
-        {
-            // Check the dimensions limit
-            if ($arrDimensions[0] > 0 && $arrDimensions[1] > 0)
-            {
-                list($width, $height) = getimagesize(TL_ROOT . '/' . $strImage);
-
-                if ($width < $arrDimensions[0] || $height < $arrDimensions[1])
-                {
-                    continue;
-                }
-            }
-
-            if ($objPage->outputFormat == 'xhtml')
-            {
-                $GLOBALS['TL_HEAD'][] = '<meta property="og:image" content="' . $strHost . '/' . $strImage . '" />';
-            }
-            else
-            {
-                $GLOBALS['TL_HEAD'][] = '<meta property="og:image" content="' . $strHost . '/' . $strImage . '">';
             }
         }
     }

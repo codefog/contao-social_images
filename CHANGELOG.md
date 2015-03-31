@@ -1,6 +1,13 @@
 social_images Changelog
 =======================
 
+Version 3.2.0 stable (2015-03-31)
+---------------------------------
+
+### Improved
+- Use getPageLayout hook to collect page images (see #8)
+
+
 Version 3.1.2 stable (2015-01-16)
 ---------------------------------
 
