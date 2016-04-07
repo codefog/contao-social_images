@@ -18,21 +18,6 @@ namespace SocialImages;
  */
 class SocialImages extends \Controller
 {
-
-    /**
-     * Initializes the global array
-     */
-    public function __construct()
-    {
-        if (!isset($GLOBALS['SOCIAL_IMAGES']) || !is_array($GLOBALS['SOCIAL_IMAGES']))
-        {
-            $GLOBALS['SOCIAL_IMAGES'] = array();
-        }
-
-        parent::__construct();
-    }
-
-
     /**
      * Add the social images to the page
      *
@@ -41,7 +26,7 @@ class SocialImages extends \Controller
      */
     public function addSocialImages(\PageModel $objPage, \LayoutModel $objLayout)
     {
-        if (empty($GLOBALS['SOCIAL_IMAGES']))
+        if (!is_array($GLOBALS['SOCIAL_IMAGES']) || count($GLOBALS['SOCIAL_IMAGES']) < 1)
         {
             return;
         }
@@ -94,6 +79,11 @@ class SocialImages extends \Controller
             return;
         }
 
+        // Initialize the array
+        if (!is_array($GLOBALS['SOCIAL_IMAGES'])) {
+            $GLOBALS['SOCIAL_IMAGES'] = array();
+        }
+
         // Add the current page image
         if ($objPage->socialImage && ($objImage = \FilesModel::findByUuid($objPage->socialImage)) !== null && is_file(TL_ROOT . '/' . $objImage->path))
         {
@@ -128,7 +118,7 @@ class SocialImages extends \Controller
      */
     public function collectContentElementImages($objModel, $strBuffer)
     {
-        if (!in_array($objModel->type, $GLOBALS['SOCIAL_IMAGES_CE']))
+        if (!is_array($GLOBALS['SOCIAL_IMAGES']) || !in_array($objModel->type, $GLOBALS['SOCIAL_IMAGES_CE']))
         {
             return $strBuffer;
         }
@@ -348,7 +338,7 @@ class SocialImages extends \Controller
      */
     public function collectNewsImages($objTemplate, $arrData, $objModule)
     {
-        if (!$arrData['addImage'])
+        if (!is_array($GLOBALS['SOCIAL_IMAGES']) || !$arrData['addImage'])
         {
             return;
         }
@@ -357,7 +347,7 @@ class SocialImages extends \Controller
 
         if ($objFile !== null && is_file(TL_ROOT . '/' . $objFile->path))
         {
-            if ($objModule->type == 'newsreader')
+            if ($objModule->type === 'newsreader')
             {
                 array_unshift($GLOBALS['SOCIAL_IMAGES'], $objFile->path);
             }
@@ -376,6 +366,10 @@ class SocialImages extends \Controller
      */
     public function collectEventImages($arrEvents, $arrCalendars, $intStart, $intEnd, $objModule)
     {
+        if (!is_array($GLOBALS['SOCIAL_IMAGES'])) {
+            return $arrEvents;
+        }
+
         foreach ($arrEvents as $v)
         {
             foreach ($v as $vv)
@@ -391,7 +385,7 @@ class SocialImages extends \Controller
 
                     if ($objFile !== null && is_file(TL_ROOT . '/' . $objFile->path))
                     {
-                        if ($objModule->type == 'eventreader')
+                        if ($objModule->type === 'eventreader')
                         {
                             array_unshift($GLOBALS['SOCIAL_IMAGES'], $objFile->path);
                         }
