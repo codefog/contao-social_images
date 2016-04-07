@@ -28,6 +28,8 @@ class SocialImages extends \Controller
         {
             $GLOBALS['SOCIAL_IMAGES'] = array();
         }
+
+        parent::__construct();
     }
 
 
