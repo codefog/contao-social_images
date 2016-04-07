@@ -20,6 +20,18 @@ class SocialImages extends \Controller
 {
 
     /**
+     * Initializes the global array
+     */
+    public function __construct()
+    {
+        if (!isset($GLOBALS['SOCIAL_IMAGES']) || !is_array($GLOBALS['SOCIAL_IMAGES']))
+        {
+            $GLOBALS['SOCIAL_IMAGES'] = array();
+        }
+    }
+
+
+    /**
      * Add the social images to the page
      *
      * @param \PageModel   $objPage
@@ -27,7 +39,7 @@ class SocialImages extends \Controller
      */
     public function addSocialImages(\PageModel $objPage, \LayoutModel $objLayout)
     {
-        if (!is_array($GLOBALS['SOCIAL_IMAGES']) || empty($GLOBALS['SOCIAL_IMAGES']))
+        if (empty($GLOBALS['SOCIAL_IMAGES']))
         {
             return;
         }
@@ -83,14 +95,7 @@ class SocialImages extends \Controller
         // Add the current page image
         if ($objPage->socialImage && ($objImage = \FilesModel::findByUuid($objPage->socialImage)) !== null && is_file(TL_ROOT . '/' . $objImage->path))
         {
-            if (is_array($GLOBALS['SOCIAL_IMAGES']))
-            {
-                array_unshift($GLOBALS['SOCIAL_IMAGES'], $objImage->path);
-            }
-            else
-            {
-                $GLOBALS['SOCIAL_IMAGES'] = array($objImage->path);
-            }
+            array_unshift($GLOBALS['SOCIAL_IMAGES'], $objImage->path);
         }
         // Walk the trail
         else
@@ -104,14 +109,7 @@ class SocialImages extends \Controller
                     // Add the image
                     if ($objTrail->socialImage && ($objImage = \FilesModel::findByUuid($objTrail->socialImage)) !== null && is_file(TL_ROOT . '/' . $objImage->path))
                     {
-                        if (is_array($GLOBALS['SOCIAL_IMAGES']))
-                        {
-                            array_unshift($GLOBALS['SOCIAL_IMAGES'], $objImage->path);
-                        }
-                        else
-                        {
-                            $GLOBALS['SOCIAL_IMAGES'] = array($objImage->path);
-                        }
+                        array_unshift($GLOBALS['SOCIAL_IMAGES'], $objImage->path);
 
                         break;
                     }
@@ -346,7 +344,7 @@ class SocialImages extends \Controller
      * @param object
      * @param array
      */
-    public function collectNewsImages($objTemplate, $arrData)
+    public function collectNewsImages($objTemplate, $arrData, $objModule)
     {
         if (!$arrData['addImage'])
         {
@@ -357,7 +355,14 @@ class SocialImages extends \Controller
 
         if ($objFile !== null && is_file(TL_ROOT . '/' . $objFile->path))
         {
-            array_unshift($GLOBALS['SOCIAL_IMAGES'], $objFile->path);
+            if ($objModule->type == 'newsreader')
+            {
+                array_unshift($GLOBALS['SOCIAL_IMAGES'], $objFile->path);
+            }
+            else
+            {
+                $GLOBALS['SOCIAL_IMAGES'][] = $objFile->path;
+            }
         }
     }
 
@@ -367,7 +372,7 @@ class SocialImages extends \Controller
      * @param array
      * @return array
      */
-    public function collectEventImages($arrEvents)
+    public function collectEventImages($arrEvents, $arrCalendars, $intStart, $intEnd, $objModule)
     {
         foreach ($arrEvents as $v)
         {
@@ -384,7 +389,14 @@ class SocialImages extends \Controller
 
                     if ($objFile !== null && is_file(TL_ROOT . '/' . $objFile->path))
                     {
-                        array_unshift($GLOBALS['SOCIAL_IMAGES'], $objFile->path);
+                        if ($objModule->type == 'eventreader')
+                        {
+                            array_unshift($GLOBALS['SOCIAL_IMAGES'], $objFile->path);
+                        }
+                        else
+                        {
+                            $GLOBALS['SOCIAL_IMAGES'][] = $objFile->path;
+                        }
                     }
 
                 }
