@@ -357,7 +357,7 @@ class SocialImages extends \Controller
 
         if ($objFile !== null && is_file(TL_ROOT . '/' . $objFile->path))
         {
-            $GLOBALS['SOCIAL_IMAGES'][] = $objFile->path;
+            array_unshift($GLOBALS['SOCIAL_IMAGES'], $objFile->path);
         }
     }
 
@@ -384,7 +384,7 @@ class SocialImages extends \Controller
 
                     if ($objFile !== null && is_file(TL_ROOT . '/' . $objFile->path))
                     {
-                        $GLOBALS['SOCIAL_IMAGES'][] = $objFile->path;
+                        array_unshift($GLOBALS['SOCIAL_IMAGES'], $objFile->path);
                     }
 
                 }
