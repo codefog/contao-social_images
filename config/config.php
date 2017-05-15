@@ -16,7 +16,7 @@
  * Extension version
  */
 @define('SOCIAL_IMAGES_VERSION', '3.3');
-@define('SOCIAL_IMAGES_BUILD', '0');
+@define('SOCIAL_IMAGES_BUILD', '1');
 
 
 /**
