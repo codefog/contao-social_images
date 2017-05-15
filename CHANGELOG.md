@@ -1,6 +1,13 @@
 social_images Changelog
 =======================
 
+Version 3.3.1 stable (2017-05-15)
+---------------------------------
+
+### Fixed
+- Fixed the palette adjustments in page layout settings (#14)
+
+
 Version 3.3.0 stable (2016-04-11)
 ---------------------------------
 

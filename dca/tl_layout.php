@@ -15,7 +15,7 @@
 /**
  * Extend a tl_layout palette
  */
-$GLOBALS['TL_DCA']['tl_layout']['palettes']['default'] = str_replace('head;', 'head;{socialImages_legend:hide},socialImages,socialImages_limit,socialImages_size;', $GLOBALS['TL_DCA']['tl_layout']['palettes']['default']);
+$GLOBALS['TL_DCA']['tl_layout']['palettes']['default'] .= ';{socialImages_legend:hide},socialImages,socialImages_limit,socialImages_size';
 
 
 /**
