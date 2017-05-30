@@ -57,10 +57,10 @@ class SocialImages extends \Controller
 
             // Support the custom assets URL
             if (TL_ASSETS_URL && strpos($strImage, 'assets/') === 0) {
-                $strHost = TL_ASSETS_URL;
+                $strHost = 'http:'.TL_ASSETS_URL;
             } elseif (TL_FILES_URL && strpos($strImage, \Config::get('uploadPath').'/') === 0) {
                 // Support the custom files URL
-                $strHost = TL_FILES_URL;
+                $strHost = 'http:'.TL_FILES_URL;
             }
 
             $strHost = rtrim($strHost, '/');
