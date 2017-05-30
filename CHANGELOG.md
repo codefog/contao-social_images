@@ -1,6 +1,20 @@
 social_images Changelog
 =======================
 
+Version 3.3.3 stable (2017-05-30)
+---------------------------------
+
+### Fixed
+- Fixed the images not respecting custom assets and files URLs (#16)
+
+
+Version 3.3.2 stable (2017-05-29)
+---------------------------------
+
+### Fixed
+- Fixed the Contao 4 dependency (#15)
+
+
 Version 3.3.1 stable (2017-05-15)
 ---------------------------------
 

@@ -40,7 +40,6 @@ class SocialImages extends \Controller
         }
 
         $arrDimensions = deserialize($objLayout->socialImages_size, true);
-        $strHost = (\Environment::get('ssl') ? 'https://' : 'http://') . \Environment::get('host') . TL_PATH;
 
         foreach ($arrImages as $strImage)
         {
@@ -57,13 +56,40 @@ class SocialImages extends \Controller
 
             if ($objPage->outputFormat == 'xhtml')
             {
-                $GLOBALS['TL_HEAD'][] = '<meta property="og:image" content="' . $strHost . '/' . $strImage . '" />';
+                $GLOBALS['TL_HEAD'][] = '<meta property="og:image" content="' . $this->generateImageUrl($strImage) . '" />';
             }
             else
             {
-                $GLOBALS['TL_HEAD'][] = '<meta property="og:image" content="' . $strHost . '/' . $strImage . '">';
+                $GLOBALS['TL_HEAD'][] = '<meta property="og:image" content="' . $this->generateImageUrl($strImage) . '">';
             }
         }
+    }
+
+    /**
+     * Generate the image URL
+     *
+     * @param string $image
+     *
+     * @return string
+     */
+    private function generateImageUrl($image)
+    {
+        // Support the custom assets URL
+        if (TL_ASSETS_URL && strpos($image, 'assets/') === 0) {
+            $url = ltrim(TL_ASSETS_URL, '/');
+        } elseif (TL_FILES_URL && strpos($image, \Config::get('uploadPath').'/') === 0) {
+            // Support the custom files URL
+            $url = ltrim(TL_FILES_URL, '/');
+        } else {
+            $url = \Environment::get('host') . TL_PATH;
+        }
+
+        // Add the protocol if missing
+        if (!preg_match('@https?://@', $url)) {
+            $url = (\Environment::get('ssl') ? 'https://' : 'http://') . $url;
+        }
+
+        return rtrim($url, '/') . '/' . $image;
     }
 
 
