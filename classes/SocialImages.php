@@ -40,7 +40,7 @@ class SocialImages extends \Controller
         }
 
         $arrDimensions = deserialize($objLayout->socialImages_size, true);
-        $strHost = (\Environment::get('ssl') ? 'https://' : 'http://') . \Environment::get('host') . TL_PATH;
+        $protocol = \Environment::get('ssl') ? 'https://' : 'http://';
 
         foreach ($arrImages as $strImage)
         {
@@ -57,13 +57,15 @@ class SocialImages extends \Controller
 
             // Support the custom assets URL
             if (TL_ASSETS_URL && strpos($strImage, 'assets/') === 0) {
-                $strHost = 'http:'.TL_ASSETS_URL;
+                $strHost = TL_ASSETS_URL;
             } elseif (TL_FILES_URL && strpos($strImage, \Config::get('uploadPath').'/') === 0) {
                 // Support the custom files URL
-                $strHost = 'http:'.TL_FILES_URL;
+                $strHost = TL_FILES_URL;
+            } else {
+                $strHost = \Environment::get('host') . TL_PATH;
             }
 
-            $strHost = rtrim($strHost, '/');
+            $strHost = $protocol . trim($strHost, '/');
 
             if ($objPage->outputFormat == 'xhtml')
             {
