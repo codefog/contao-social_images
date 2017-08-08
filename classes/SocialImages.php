@@ -89,7 +89,7 @@ class SocialImages extends \Controller
             $url = (\Environment::get('ssl') ? 'https://' : 'http://') . $url;
         }
 
-        return rtrim($url, '/') . '/' . str_replace(' ', '%20', $image);
+        return rtrim($url, '/') . '/' . \System::urlEncode($image);
     }
 
 
