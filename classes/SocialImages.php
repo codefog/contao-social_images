@@ -43,11 +43,11 @@ class SocialImages extends \Controller
 
         foreach ($arrImages as $strImage)
         {
+            list($width, $height) = getimagesize(TL_ROOT . '/' . $strImage);
+
             // Check the dimensions limit
             if ($arrDimensions[0] > 0 && $arrDimensions[1] > 0)
             {
-                list($width, $height) = getimagesize(TL_ROOT . '/' . $strImage);
-
                 if ($width < $arrDimensions[0] || $height < $arrDimensions[1])
                 {
                     continue;
@@ -61,6 +61,12 @@ class SocialImages extends \Controller
             else
             {
                 $GLOBALS['TL_HEAD'][] = '<meta property="og:image" content="' . $this->generateImageUrl($strImage) . '">';
+            }
+
+            // Add the dimension tags
+            if ($width > 0 && $height > 0) {
+                $GLOBALS['TL_HEAD'][] = '<meta property="og:image:width" content="' . $width . '">';
+                $GLOBALS['TL_HEAD'][] = '<meta property="og:image:height" content="' . $height . '">';
             }
         }
     }
