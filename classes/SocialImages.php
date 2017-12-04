@@ -54,20 +54,16 @@ class SocialImages extends \Controller
                 }
             }
 
-            if ($objPage->outputFormat == 'xhtml')
-            {
-                $GLOBALS['TL_HEAD'][] = '<meta property="og:image" content="' . $this->generateImageUrl($strImage) . '" />';
-            }
-            else
-            {
-                $GLOBALS['TL_HEAD'][] = '<meta property="og:image" content="' . $this->generateImageUrl($strImage) . '">';
-            }
+            $tagEnd = ($objPage->outputFormat === 'xhtml') ? ' />' : '>';
+            $tags = ['<meta property="og:image" content="' . $this->generateImageUrl($strImage) . '"' . $tagEnd];
 
             // Add the dimension tags
             if ($width > 0 && $height > 0) {
-                $GLOBALS['TL_HEAD'][] = '<meta property="og:image:width" content="' . $width . '">';
-                $GLOBALS['TL_HEAD'][] = '<meta property="og:image:height" content="' . $height . '">';
+                $tags[] = '<meta property="og:image:width" content="' . $width . '"' . $tagEnd;
+                $tags[] = '<meta property="og:image:height" content="' . $height . '"' . $tagEnd;
             }
+
+            $GLOBALS['TL_HEAD'][] = implode("\n", $tags);
         }
     }
 
