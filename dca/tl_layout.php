@@ -15,7 +15,7 @@
 /**
  * Extend a tl_layout palette
  */
-$GLOBALS['TL_DCA']['tl_layout']['palettes']['default'] .= ';{socialImages_legend:hide},socialImages,socialImages_limit,socialImages_size';
+$GLOBALS['TL_DCA']['tl_layout']['palettes']['default'] .= ';{socialImages_legend:hide},socialImages,socialImages_limit,socialImages_size,socialImages_resize';
 
 
 /**
@@ -48,4 +48,15 @@ $GLOBALS['TL_DCA']['tl_layout']['fields']['socialImages_size'] = array
 	'inputType'               => 'text',
 	'eval'                    => array('multiple'=>true, 'size'=>2, 'tl_class'=>'w50'),
 	'sql'                     => "varchar(64) NOT NULL default ''"
+);
+
+$GLOBALS['TL_DCA']['tl_layout']['fields']['socialImages_resize'] = array
+(
+	'label'                   => &$GLOBALS['TL_LANG']['tl_layout']['socialImages_resize'],
+    'exclude'                 => true,
+    'inputType'               => 'imageSize',
+    'options'                 => System::getImageSizes(),
+    'reference'               => &$GLOBALS['TL_LANG']['MSC'],
+    'eval'                    => array('rgxp'=>'natural', 'includeBlankOption'=>true, 'nospace'=>true, 'helpwizard'=>true, 'tl_class'=>'w50'),
+    'sql'                     => "varchar(64) NOT NULL default ''"
 );

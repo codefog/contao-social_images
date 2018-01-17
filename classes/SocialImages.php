@@ -54,6 +54,14 @@ class SocialImages extends \Controller
                 }
             }
 
+            $resize = deserialize($objLayout->socialImages_resize, true);
+
+            // Resize the image
+            if ($resize[0] || $resize[1] || $resize[2]) {
+                $strImage = \Image::get($strImage, $resize[0], $resize[1], $resize[2]);
+                list($width, $height) = getimagesize(TL_ROOT . '/' . $strImage);
+            }
+
             $tagEnd = ($objPage->outputFormat === 'xhtml') ? ' />' : '>';
             $tags = ['<meta property="og:image" content="' . $this->generateImageUrl($strImage) . '"' . $tagEnd];
 
