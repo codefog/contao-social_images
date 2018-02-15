@@ -58,8 +58,8 @@ class SocialImages extends \Controller
 
             // Resize the image
             if ($resize[0] || $resize[1] || $resize[2]) {
-                $strImage = \Image::get($strImage, $resize[0], $resize[1], $resize[2]);
-                list($width, $height) = getimagesize(TL_ROOT . '/' . urldecode($strImage));
+                $strImage = urldecode(\Image::get($strImage, $resize[0], $resize[1], $resize[2]));
+                list($width, $height) = getimagesize(TL_ROOT . '/' . $strImage);
             }
 
             $tagEnd = ($objPage->outputFormat === 'xhtml') ? ' />' : '>';
