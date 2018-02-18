@@ -55,7 +55,7 @@ $GLOBALS['TL_DCA']['tl_layout']['fields']['socialImages_resize'] = array
 	'label'                   => &$GLOBALS['TL_LANG']['tl_layout']['socialImages_resize'],
     'exclude'                 => true,
     'inputType'               => 'imageSize',
-    'options'                 => System::getImageSizes(),
+    'options_callback'        => function() { System::getImageSizes(); },
     'reference'               => &$GLOBALS['TL_LANG']['MSC'],
     'eval'                    => array('rgxp'=>'natural', 'includeBlankOption'=>true, 'nospace'=>true, 'helpwizard'=>true, 'tl_class'=>'w50'),
     'sql'                     => "varchar(64) NOT NULL default ''"
