@@ -402,6 +402,11 @@ class SocialImages extends \Controller
      */
     public function collectEventImages($arrEvents, $arrCalendars, $intStart, $intEnd, $objModule)
     {
+        // do not add images of events from the event menu
+        if ($objModule->type === 'eventmenu') {
+            return $arrEvents;
+        }
+
         if (!is_array($GLOBALS['SOCIAL_IMAGES'])) {
             return $arrEvents;
         }
