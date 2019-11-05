@@ -43,7 +43,7 @@ class SocialImages extends \Controller
 
         foreach ($arrImages as $strImage)
         {
-            list($width, $height) = getimagesize(TL_ROOT . '/' . $strImage);
+            list($width, $height) = (new \Contao\File($strImage))->imageSize;
 
             // Check the dimensions limit
             if ($arrDimensions[0] > 0 && $arrDimensions[1] > 0)
