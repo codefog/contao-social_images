@@ -59,7 +59,7 @@ class SocialImages extends \Controller
             // Resize the image
             if ($resize[0] || $resize[1] || $resize[2]) {
                 $strImage = urldecode(\Image::get($strImage, $resize[0], $resize[1], $resize[2]));
-                list($width, $height) = getimagesize(TL_ROOT . '/' . $strImage);
+                list($width, $height) = (new \Contao\File($strImage))->imageSize;
             }
 
             $tagEnd = ($objPage->outputFormat === 'xhtml') ? ' />' : '>';
