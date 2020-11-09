@@ -453,12 +453,7 @@ class SocialImages extends \Controller
      */
     public function collectEventReaderImage($objContentModel, $strBuffer, $objElement)
     {
-        if (!is_array($GLOBALS['SOCIAL_IMAGES']))
-        {
-            return $strBuffer;
-        }
-
-        if (!$objElement instanceof \ContentModule)
+        if (!is_array($GLOBALS['SOCIAL_IMAGES']) || !$objElement instanceof \ContentModule)
         {
             return $strBuffer;
         }
