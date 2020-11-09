@@ -455,7 +455,7 @@ class SocialImages extends \Controller
     {
         if (!is_array($GLOBALS['SOCIAL_IMAGES']))
         {
-            return;
+            return $strBuffer;
         }
 
         if (!$objElement instanceof \ContentModule)
