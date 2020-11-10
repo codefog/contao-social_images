@@ -446,37 +446,27 @@ class SocialImages extends \Controller
 
     /**
      * Collect the image from the currently displayed event
-     * @param \ContentModel
-     * @param string
-     * @param \ContentElement
-     * @return string
+     * @param \Template
      */
-    public function collectEventReaderImage($objContentModel, $strBuffer, $objElement)
+    public function collectEventReaderImage($objTemplate)
     {
-        if (!is_array($GLOBALS['SOCIAL_IMAGES']) || !$objElement instanceof \ContentModule)
+        if (!is_array($GLOBALS['SOCIAL_IMAGES']) || 0 !== strpos($objTemplate->getName(), 'mod_eventreader'))
         {
-            return $strBuffer;
+            return;
         }
 
         $strItem = \Input::get(\Config::get('useAutoItem') ? 'auto_item' : 'item');
 
         if (empty($strItem))
         {
-            return $strBuffer;
-        }
-
-        $objModuleModel = \ModuleModel::findByPk($objContentModel->module);
-
-        if ('eventreader' !== $objModuleModel->type && 'eventlist' === $objModuleModel->type && empty($objModuleModel->cal_readerModule))
-        {
-            return $strBuffer;
+            return;
         }
 
         $objEvent = \CalendarEventsModel::findByIdOrAlias($strItem);
 
         if (null === $objEvent)
         {
-            return $strBuffer;
+            return;
         }
 
         $objFile = \FilesModel::findById($objEvent->singleSRC);
@@ -485,7 +475,5 @@ class SocialImages extends \Controller
         {
             array_unshift($GLOBALS['SOCIAL_IMAGES'], $objFile->path);
         }
-
-        return $strBuffer;
     }
 }
