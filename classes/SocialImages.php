@@ -442,4 +442,38 @@ class SocialImages extends \Controller
 
         return $arrEvents;
     }
+
+
+    /**
+     * Collect the image from the currently displayed event
+     * @param \Template
+     */
+    public function collectEventReaderImage($objTemplate)
+    {
+        if (!is_array($GLOBALS['SOCIAL_IMAGES']) || 0 !== strpos($objTemplate->getName(), 'mod_eventreader'))
+        {
+            return;
+        }
+
+        $strItem = \Input::get(\Config::get('useAutoItem') ? 'auto_item' : 'events', false, true);
+
+        if (empty($strItem))
+        {
+            return;
+        }
+
+        $objEvent = \CalendarEventsModel::findByIdOrAlias($strItem);
+
+        if (null === $objEvent)
+        {
+            return;
+        }
+
+        $objFile = \FilesModel::findById($objEvent->singleSRC);
+
+        if ($objFile !== null && is_file(TL_ROOT . '/' . $objFile->path))
+        {
+            array_unshift($GLOBALS['SOCIAL_IMAGES'], $objFile->path);
+        }
+    }
 }
