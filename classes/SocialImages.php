@@ -455,7 +455,7 @@ class SocialImages extends \Controller
             return;
         }
 
-        $strItem = \Input::get(\Config::get('useAutoItem') ? 'auto_item' : 'item');
+        $strItem = \Input::get(\Config::get('useAutoItem') ? 'auto_item' : 'events');
 
         if (empty($strItem))
         {
