@@ -374,23 +374,30 @@ class SocialImages extends \Controller
      */
     public function collectNewsImages($objTemplate, $arrData, $objModule)
     {
-        if (!is_array($GLOBALS['SOCIAL_IMAGES']) || !$arrData['addImage'])
+        if (!is_array($GLOBALS['SOCIAL_IMAGES']))
         {
             return;
         }
 
-        $objFile = \FilesModel::findByPk($arrData['singleSRC']);
+        $strSocialImage = $this->getFilePath($arrData['socialImage']);
 
-        if ($objFile !== null && is_file(TL_ROOT . '/' . $objFile->path))
+        if ($strSocialImage === null && $arrData['addImage'])
         {
-            if ($objModule->type === 'newsreader')
-            {
-                array_unshift($GLOBALS['SOCIAL_IMAGES'], $objFile->path);
-            }
-            else
-            {
-                $GLOBALS['SOCIAL_IMAGES'][] = $objFile->path;
-            }
+            $strSocialImage = $this->getFilePath($arrData['singleSRC']);
+        }
+
+        if ($strSocialImage === null)
+        {
+            return;
+        }
+
+        if ($objModule->type === 'newsreader')
+        {
+            array_unshift($GLOBALS['SOCIAL_IMAGES'], $strSocialImage);
+        }
+        else
+        {
+            $GLOBALS['SOCIAL_IMAGES'][] = $strSocialImage;
         }
     }
 
@@ -417,25 +424,26 @@ class SocialImages extends \Controller
             {
                 foreach ($vv as $arrData)
                 {
-                    if (!$arrData['addImage'])
+                    $strSocialImage = $this->getFilePath($arrData['socialImage']);
+
+                    if ($strSocialImage === null && $arrData['addImage'])
                     {
-                        return $arrEvents;
+                        $strSocialImage = $this->getFilePath($arrData['singleSRC']);
                     }
 
-                    $objFile = \FilesModel::findByPk($arrData['singleSRC']);
-
-                    if ($objFile !== null && is_file(TL_ROOT . '/' . $objFile->path))
+                    if ($strSocialImage === null)
                     {
-                        if ($objModule->type === 'eventreader')
-                        {
-                            array_unshift($GLOBALS['SOCIAL_IMAGES'], $objFile->path);
-                        }
-                        else
-                        {
-                            $GLOBALS['SOCIAL_IMAGES'][] = $objFile->path;
-                        }
+                        continue;
                     }
 
+                    if ($objModule->type === 'eventreader')
+                    {
+                        array_unshift($GLOBALS['SOCIAL_IMAGES'], $strSocialImage);
+                    }
+                    else
+                    {
+                        $GLOBALS['SOCIAL_IMAGES'][] = $strSocialImage;
+                    }
                 }
             }
         }
@@ -469,11 +477,36 @@ class SocialImages extends \Controller
             return;
         }
 
-        $objFile = \FilesModel::findById($objEvent->singleSRC);
+        $strSocialImage = $this->getFilePath($objEvent->socialImage);
 
-        if ($objFile !== null && is_file(TL_ROOT . '/' . $objFile->path))
+        if ($strSocialImage === null && $objEvent->addImage)
         {
-            array_unshift($GLOBALS['SOCIAL_IMAGES'], $objFile->path);
+            $strSocialImage = $this->getFilePath($objEvent->singleSRC);
         }
+
+        if ($strSocialImage === null)
+        {
+            return;
+        }
+
+        array_unshift($GLOBALS['SOCIAL_IMAGES'], $strSocialImage);
+    }
+
+
+    /**
+     * Returns the file path for a given ID/UUID. Returns null if the file does not exist anymore.
+     * @param string
+     * @return string|null
+     */
+    private function getFilePath($strFileId)
+    {
+        $objFile = \FilesModel::findById($strFileId);
+
+        if ($objFile === null || !is_file(TL_ROOT . '/' . $objFile->path))
+        {
+            return null;
+        }
+
+        return $objFile->path;
     }
 }
