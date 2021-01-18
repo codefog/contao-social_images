@@ -18,18 +18,21 @@ use Contao\CoreBundle\DataContainer\PaletteManipulator;
 /**
  * Extend tl_calendar_events palettes
  */
-foreach ($GLOBALS['TL_DCA']['tl_calendar_events']['palettes'] as $k=>$v)
+if (!empty($GLOBALS['TL_DCA']['tl_calendar_events']['palettes']))
 {
-	if (!\is_string($v))
+	foreach ($GLOBALS['TL_DCA']['tl_calendar_events']['palettes'] as $k=>$v)
 	{
-		continue;
-	}
+		if (!\is_string($v))
+		{
+			continue;
+		}
 
-	PaletteManipulator::create()
-		->addLegend('socialimages_legend', 'expert_legend', PaletteManipulator::POSITION_BEFORE, true)
-		->addField('socialImage', 'socialimages_legend', PaletteManipulator::POSITION_APPEND)
-		->applyToPalette($k, 'tl_calendar_events')
-	;
+		PaletteManipulator::create()
+			->addLegend('socialimages_legend', 'expert_legend', PaletteManipulator::POSITION_BEFORE, true)
+			->addField('socialImage', 'socialimages_legend', PaletteManipulator::POSITION_APPEND)
+			->applyToPalette($k, 'tl_calendar_events')
+		;
+	}
 }
 
 
