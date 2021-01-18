@@ -39,11 +39,14 @@ if (!empty($GLOBALS['TL_DCA']['tl_news']['palettes']))
 /**
  * Add the field to tl_news
  */
-$GLOBALS['TL_DCA']['tl_news']['fields']['socialImage'] = array
-(
-	'label'                   => &$GLOBALS['TL_LANG']['tl_news']['socialImage'],
-	'exclude'                 => true,
-	'inputType'               => 'fileTree',
-	'eval'                    => array('files'=>true, 'filesOnly'=>true, 'fieldType'=>'radio', 'extensions'=>$GLOBALS['TL_CONFIG']['validImageTypes'], 'tl_class'=>'clr'),
-	'sql'                     => "binary(16) NULL"
-);
+if (!empty($GLOBALS['TL_DCA']['tl_news']['fields']))
+{
+	$GLOBALS['TL_DCA']['tl_news']['fields']['socialImage'] = array
+	(
+		'label'                   => &$GLOBALS['TL_LANG']['tl_news']['socialImage'],
+		'exclude'                 => true,
+		'inputType'               => 'fileTree',
+		'eval'                    => array('files'=>true, 'filesOnly'=>true, 'fieldType'=>'radio', 'extensions'=>$GLOBALS['TL_CONFIG']['validImageTypes'], 'tl_class'=>'clr'),
+		'sql'                     => "binary(16) NULL"
+	);
+}

@@ -39,11 +39,14 @@ if (!empty($GLOBALS['TL_DCA']['tl_calendar_events']['palettes']))
 /**
  * Add the field to tl_calendar_events
  */
-$GLOBALS['TL_DCA']['tl_calendar_events']['fields']['socialImage'] = array
-(
-	'label'                   => &$GLOBALS['TL_LANG']['tl_calendar_events']['socialImage'],
-	'exclude'                 => true,
-	'inputType'               => 'fileTree',
-	'eval'                    => array('files'=>true, 'filesOnly'=>true, 'fieldType'=>'radio', 'extensions'=>$GLOBALS['TL_CONFIG']['validImageTypes'], 'tl_class'=>'clr'),
-	'sql'                     => "binary(16) NULL"
-);
+if (!empty($GLOBALS['TL_DCA']['tl_calendar_events']['fields']))
+{
+	$GLOBALS['TL_DCA']['tl_calendar_events']['fields']['socialImage'] = array
+	(
+		'label'                   => &$GLOBALS['TL_LANG']['tl_calendar_events']['socialImage'],
+		'exclude'                 => true,
+		'inputType'               => 'fileTree',
+		'eval'                    => array('files'=>true, 'filesOnly'=>true, 'fieldType'=>'radio', 'extensions'=>$GLOBALS['TL_CONFIG']['validImageTypes'], 'tl_class'=>'clr'),
+		'sql'                     => "binary(16) NULL"
+	);
+}
