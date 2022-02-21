@@ -26,7 +26,7 @@ class SocialImages extends \Controller
      */
     public function addSocialImages(\PageModel $objPage, \LayoutModel $objLayout)
     {
-        if (!is_array($GLOBALS['SOCIAL_IMAGES']) || count($GLOBALS['SOCIAL_IMAGES']) < 1)
+        if (!isset($GLOBALS['SOCIAL_IMAGES']) || !is_array($GLOBALS['SOCIAL_IMAGES']) || count($GLOBALS['SOCIAL_IMAGES']) < 1)
         {
             return;
         }
@@ -116,7 +116,7 @@ class SocialImages extends \Controller
         }
 
         // Initialize the array
-        if (!is_array($GLOBALS['SOCIAL_IMAGES'])) {
+        if (!isset($GLOBALS['SOCIAL_IMAGES']) || !is_array($GLOBALS['SOCIAL_IMAGES'])) {
             $GLOBALS['SOCIAL_IMAGES'] = array();
         }
 
@@ -154,7 +154,7 @@ class SocialImages extends \Controller
      */
     public function collectContentElementImages($objModel, $strBuffer)
     {
-        if (!is_array($GLOBALS['SOCIAL_IMAGES']) || !in_array($objModel->type, $GLOBALS['SOCIAL_IMAGES_CE']))
+        if (!isset($GLOBALS['SOCIAL_IMAGES']) || !is_array($GLOBALS['SOCIAL_IMAGES']) || !in_array($objModel->type, $GLOBALS['SOCIAL_IMAGES_CE']))
         {
             return $strBuffer;
         }
@@ -374,7 +374,7 @@ class SocialImages extends \Controller
      */
     public function collectNewsImages($objTemplate, $arrData, $objModule)
     {
-        if (!is_array($GLOBALS['SOCIAL_IMAGES']))
+        if (!isset($GLOBALS['SOCIAL_IMAGES']) || !is_array($GLOBALS['SOCIAL_IMAGES']))
         {
             return;
         }
@@ -414,7 +414,7 @@ class SocialImages extends \Controller
             return $arrEvents;
         }
 
-        if (!is_array($GLOBALS['SOCIAL_IMAGES'])) {
+        if (!isset($GLOBALS['SOCIAL_IMAGES']) || !is_array($GLOBALS['SOCIAL_IMAGES'])) {
             return $arrEvents;
         }
 
@@ -458,7 +458,7 @@ class SocialImages extends \Controller
      */
     public function collectEventReaderImage($objTemplate)
     {
-        if (!is_array($GLOBALS['SOCIAL_IMAGES']) || 0 !== strpos($objTemplate->getName(), 'mod_eventreader'))
+        if (!isset($GLOBALS['SOCIAL_IMAGES']) || !is_array($GLOBALS['SOCIAL_IMAGES']) || 0 !== strpos($objTemplate->getName(), 'mod_eventreader'))
         {
             return;
         }
