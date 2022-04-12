@@ -40,6 +40,7 @@ class SocialImages extends \Controller
         }
 
         $arrDimensions = deserialize($objLayout->socialImages_size, true);
+        $tags = [];
 
         foreach ($arrImages as $strImage)
         {
@@ -62,15 +63,24 @@ class SocialImages extends \Controller
                 list($width, $height) = (new \Contao\File($strImage))->imageSize;
             }
 
-            $tagEnd = ($objPage->outputFormat === 'xhtml') ? ' />' : '>';
-            $tags = ['<meta property="og:image" content="' . $this->generateImageUrl($strImage) . '"' . $tagEnd];
+            $imageUrl = $this->generateImageUrl($strImage);
+
+            // Add the first image as a thumbnail (e.g., for Google search results)
+            if (count($tags) === 0) {
+                $tags[] = sprintf('<meta name="thumbnail" content="%s">', $imageUrl);
+            }
+
+            $tags[] = '<meta property="og:image" content="' . $imageUrl . '">';
 
             // Add the dimension tags
             if ($width > 0 && $height > 0) {
-                $tags[] = '<meta property="og:image:width" content="' . $width . '"' . $tagEnd;
-                $tags[] = '<meta property="og:image:height" content="' . $height . '"' . $tagEnd;
+                $tags[] = '<meta property="og:image:width" content="' . $width . '">';
+                $tags[] = '<meta property="og:image:height" content="' . $height . '">';
             }
 
+        }
+
+        if (count($tags) > 0) {
             $GLOBALS['TL_HEAD'][] = implode("\n", $tags);
         }
     }
