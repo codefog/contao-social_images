@@ -1,0 +1,19 @@
+services:
+    _defaults:
+        autoconfigure: true
+        autowire: true
+        bind:
+            $projectDir: '%kernel.project_dir%'
+
+    Codefog\SocialImagesBundle\:
+        resource: '../src/'
+
+    Codefog\SocialImagesBundle\EventListener\LayoutListener:
+        arguments:
+            $imageSizes: '@contao.image.sizes'
+        public: true
+
+    Codefog\SocialImagesBundle\ImageGenerator:
+        $assetsContext: '@contao.assets.assets_context'
+        $filesContext: '@contao.assets.files_context'
+        $imageFactory: '@contao.image.image_factory'
