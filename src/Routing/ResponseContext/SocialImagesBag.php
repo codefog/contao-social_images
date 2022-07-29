@@ -1,5 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of SocialImagesBundle.
+ *
+ * (c) Codefog
+ *
+ * @license MIT
+ */
+
 namespace Codefog\SocialImagesBundle\Routing\ResponseContext;
 
 class SocialImagesBag

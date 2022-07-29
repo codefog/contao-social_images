@@ -1,5 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of SocialImagesBundle.
+ *
+ * (c) Codefog
+ *
+ * @license MIT
+ */
+
 namespace Codefog\SocialImagesBundle;
 
 use Contao\Config;
@@ -32,7 +42,7 @@ class ImageGenerator
      */
     public function generateImages(array $images, array $settings): array
     {
-        if (count($images) === 0) {
+        if (0 === \count($images)) {
             return [];
         }
 
@@ -41,7 +51,7 @@ class ImageGenerator
 
         // Limit the images
         if ($settings['limit'] > 0) {
-            $images = array_slice($images, 0, $settings['limit']);
+            $images = \array_slice($images, 0, $settings['limit']);
         }
 
         $return = [];
@@ -74,7 +84,7 @@ class ImageGenerator
             $url = $this->generateImageUrl($page, $image->path);
 
             // Add the first image as a thumbnail (e.g., for Google search results)
-            if (count($tags) === 0) {
+            if (0 === \count($tags)) {
                 $tags[] = sprintf('<meta name="thumbnail" content="%s">', $url);
             }
 
@@ -95,11 +105,11 @@ class ImageGenerator
      */
     private function resizeImage(File $file, array $settings): File
     {
-        if (!is_array($settings['resize'] ?? null) || count($settings['resize']) === 0) {
+        if (!\is_array($settings['resize'] ?? null) || 0 === \count($settings['resize'])) {
             return $file;
         }
 
-        $image = $this->imageFactory->create($this->projectDir . '/' . $file->path, $settings['resize']);
+        $image = $this->imageFactory->create($this->projectDir.'/'.$file->path, $settings['resize']);
 
         return new File(Path::makeRelative($image->getPath(), $this->projectDir));
     }
@@ -109,7 +119,7 @@ class ImageGenerator
      */
     private function validateImageMinimumDimensions(File $file, array $settings): bool
     {
-        if (!is_array($settings['size'] ?? null)) {
+        if (!\is_array($settings['size'] ?? null)) {
             return true;
         }
 
@@ -125,7 +135,7 @@ class ImageGenerator
     }
 
     /**
-     * Generate the image URL
+     * Generate the image URL.
      */
     private function generateImageUrl(PageModel $page, string $image): string
     {
@@ -143,7 +153,7 @@ class ImageGenerator
 
         // Add the protocol, if it's missing
         if (!preg_match('/^https?:\/\//', $url)) {
-            $url = ($page->rootUseSSL ? 'https://' : 'http://') . ltrim($url, '/');
+            $url = ($page->rootUseSSL ? 'https://' : 'http://').ltrim($url, '/');
         }
 
         return $url;

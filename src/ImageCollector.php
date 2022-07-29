@@ -37,7 +37,7 @@ class ImageCollector
     {
         $bag = $this->getResponseContextBag();
 
-        if ($bag === null) {
+        if (null === $bag) {
             return [];
         }
 
@@ -73,7 +73,7 @@ class ImageCollector
 
         $bag = $this->getResponseContextBag();
 
-        if ($bag === null) {
+        if (null === $bag) {
             return false;
         }
 
@@ -111,11 +111,11 @@ class ImageCollector
     /**
      * Get the response context bag.
      */
-    private function getResponseContextBag(): ?SocialImagesBag
+    private function getResponseContextBag(): SocialImagesBag|null
     {
         $responseContext = $this->responseContextAccessor->getResponseContext();
 
-        if ($responseContext === null) {
+        if (null === $responseContext) {
             return null;
         }
 
