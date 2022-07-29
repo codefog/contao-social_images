@@ -7,11 +7,6 @@ services:
 
     Codefog\SocialImagesBundle\:
         resource: '../src/*'
-        exclude:
-            - '../src/CodefogSocialImagesBundle.php'
-            - '../src/ContaoManager/Plugin.php'
-            - '../src/DependencyInjection/CodefogSocialImagesExtension.php'
-            - '../src/Routing/ResponseContext/SocialImagesBag.php'
 
     Codefog\SocialImagesBundle\EventListener\LayoutListener:
         arguments:
