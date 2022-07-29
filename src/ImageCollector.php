@@ -12,19 +12,21 @@ declare(strict_types=1);
 
 namespace Codefog\SocialImagesBundle;
 
+use Codefog\SocialImagesBundle\Routing\ResponseContext\SocialImagesBag;
 use Contao\CoreBundle\Framework\ContaoFramework;
+use Contao\CoreBundle\Routing\ResponseContext\ResponseContextAccessor;
 use Contao\FilesModel;
 
 class ImageCollector
 {
-    private array $images = [];
-
     private ContaoFramework $framework;
+    private ResponseContextAccessor $responseContextAccessor;
     private string $projectDir;
 
-    public function __construct(ContaoFramework $framework, string $projectDir)
+    public function __construct(ContaoFramework $framework, ResponseContextAccessor $responseContextAccessor, string $projectDir)
     {
         $this->framework = $framework;
+        $this->responseContextAccessor = $responseContextAccessor;
         $this->projectDir = $projectDir;
     }
 
@@ -33,7 +35,7 @@ class ImageCollector
      */
     public function getImages(): array
     {
-        return array_unique($this->images);
+        return array_unique($this->getResponseContextBag()->all());
     }
 
     /**
@@ -63,11 +65,7 @@ class ImageCollector
             return false;
         }
 
-        if ($prepend) {
-            array_unshift($this->images, $path);
-        } else {
-            $this->images[] = $path;
-        }
+        $this->getResponseContextBag()->add($path, $prepend);
 
         return true;
     }
@@ -96,5 +94,23 @@ class ImageCollector
     public function validateFromPath(string $path = null): bool
     {
         return $path && is_file($this->projectDir.'/'.$path);
+    }
+
+    /**
+     * Get the response context bag.
+     */
+    private function getResponseContextBag(): ?SocialImagesBag
+    {
+        $responseContext = $this->responseContextAccessor->getResponseContext();
+
+        if ($responseContext === null) {
+            return null;
+        }
+
+        if (!$responseContext->has(SocialImagesBag::class)) {
+            $responseContext->addLazy(SocialImagesBag::class);
+        }
+
+        return $responseContext->get(SocialImagesBag::class);
     }
 }
