@@ -35,7 +35,13 @@ class ImageCollector
      */
     public function getImages(): array
     {
-        return array_unique($this->getResponseContextBag()->all());
+        $bag = $this->getResponseContextBag();
+
+        if ($bag === null) {
+            return [];
+        }
+
+        return array_unique($bag->all());
     }
 
     /**
@@ -65,7 +71,13 @@ class ImageCollector
             return false;
         }
 
-        $this->getResponseContextBag()->add($path, $prepend);
+        $bag = $this->getResponseContextBag();
+
+        if ($bag === null) {
+            return false;
+        }
+
+        $bag->add($path, $prepend);
 
         return true;
     }
