@@ -1,2 +1,2 @@
-# PHPStorm
-.idea
+/vendor
+composer.lock
