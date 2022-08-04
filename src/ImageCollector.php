@@ -111,7 +111,7 @@ class ImageCollector
     /**
      * Get the response context bag.
      */
-    private function getResponseContextBag(): SocialImagesBag|null
+    private function getResponseContextBag(): ?SocialImagesBag
     {
         $responseContext = $this->responseContextAccessor->getResponseContext();
 
