@@ -20,7 +20,7 @@ use Contao\File;
 use Contao\PageModel;
 use Contao\StringUtil;
 use Contao\System;
-use Webmozart\PathUtil\Path;
+use Symfony\Component\Filesystem\Path;
 
 class ImageGenerator
 {
