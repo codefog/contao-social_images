@@ -124,7 +124,7 @@ class ImageGenerator
         }
 
         if (($settings['size'][0] ?? 0) > 0 && ($settings['size'][1] ?? 0) > 0) {
-            [$width, $height] = $file->imageSize;
+            [$width, $height] = $file->imageSize + [0, 0];
 
             if ($width < $settings['size'][0] || $height < $settings['size'][1]) {
                 return false;
