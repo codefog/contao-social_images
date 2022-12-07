@@ -51,7 +51,7 @@ class ImageGenerator
 
         // Limit the images
         if ($settings['limit'] > 0) {
-            $images = \array_slice($images, 0, $settings['limit']);
+            $images = \array_slice($images, 0, (int) $settings['limit']);
         }
 
         $return = [];
