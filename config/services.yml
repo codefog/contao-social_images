@@ -8,6 +8,9 @@ services:
     Codefog\SocialImagesBundle\:
         resource: '../src/*'
 
+    Codefog\SocialImagesBundle\ImageCollector:
+        public: true
+
     Codefog\SocialImagesBundle\EventListener\LayoutListener:
         arguments:
             $imageSizes: '@contao.image.sizes'
