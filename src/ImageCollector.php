@@ -16,6 +16,7 @@ use Codefog\SocialImagesBundle\Routing\ResponseContext\SocialImagesBag;
 use Contao\CoreBundle\Framework\ContaoFramework;
 use Contao\CoreBundle\Routing\ResponseContext\ResponseContextAccessor;
 use Contao\FilesModel;
+use Contao\Validator;
 
 class ImageCollector
 {
@@ -78,6 +79,26 @@ class ImageCollector
         }
 
         $bag->add($path, $prepend);
+
+        return true;
+    }
+
+    /**
+     * Add image from external URL and return true on success, false otherwise (e.g. if the URL is invalid).
+     */
+    public function addFromExternalUrl(string $url, bool $prepend = false): bool
+    {
+        if (!Validator::isUrl($url)) {
+            return false;
+        }
+
+        $bag = $this->getResponseContextBag();
+
+        if (null === $bag) {
+            return false;
+        }
+
+        $bag->add($url, $prepend);
 
         return true;
     }

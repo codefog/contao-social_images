@@ -50,4 +50,5 @@ If you would like to add images from your custom source to the page, you can use
 ```php
 $this->imageCollector->addFromUuid($uuid); // from binary/string UUID (e.g. c67514ce-d9c8-11e3-8217-000c29e44aea)
 $this->imageCollector->addFromPath($path); // from relative path (e.g. files/path/to/image.png)
+$this->imageCollector->addFromExternalUrl($url); // from external URL (e.g. https://domain.tld/image.png)
 ```

@@ -24,6 +24,9 @@ use Symfony\Component\Filesystem\Path;
 
 class ImageGenerator
 {
+    private const TYPE_EXTERNAL = 'external';
+    private const TYPE_LOCAL = 'local';
+
     private ContaoContext $assetsContext;
     private ContaoContext $filesContext;
     private ImageFactory $imageFactory;
@@ -57,13 +60,26 @@ class ImageGenerator
         $return = [];
 
         foreach ($images as $image) {
+            // External image
+            if (preg_match('/^https?:\/\//', $image)) {
+                $return[] = [
+                    'type' => self::TYPE_EXTERNAL,
+                    'url' => $image,
+                ];
+
+                continue;
+            }
+
             $file = new File($image);
 
             if (!$file->isImage || !$this->validateImageMinimumDimensions($file, $settings)) {
                 continue;
             }
 
-            $return[] = $this->resizeImage($file, $settings);
+            $return[] = [
+                'type' => self::TYPE_LOCAL,
+                'file' => $this->resizeImage($file, $settings),
+            ];
         }
 
         return $return;
@@ -77,27 +93,51 @@ class ImageGenerator
         $tags = [];
 
         foreach ($images as $image) {
-            if (!($image instanceof File)) {
-                $image = new File($image);
-            }
+            switch ($image['type']) {
+                case self::TYPE_EXTERNAL:
+                    $this->generateExternalImageTags($image['url'], $tags);
+                    break;
 
-            $url = $this->generateImageUrl($page, $image->path);
-
-            // Add the first image as a thumbnail (e.g., for Google search results)
-            if (0 === \count($tags)) {
-                $tags[] = sprintf('<meta name="thumbnail" content="%s">', $url);
-            }
-
-            $tags[] = sprintf('<meta property="og:image" content="%s">', $url);
-
-            // Add the dimension tags
-            if ($image->width > 0 && $image->height > 0) {
-                $tags[] = sprintf('<meta property="og:image:width" content="%s">', $image->width);
-                $tags[] = sprintf('<meta property="og:image:height" content="%s">', $image->height);
+                case self::TYPE_LOCAL:
+                    $this->generateLocalImageTags($page, $image['file'], $tags);
+                    break;
             }
         }
 
         return $tags;
+    }
+
+    /**
+     * Generate the tags for external image.
+     */
+    private function generateExternalImageTags(string $url, array &$tags): void
+    {
+        $tags[] = sprintf('<meta property="og:image" content="%s">', $url);
+    }
+
+    /**
+     * Generate the tags for local image.
+     */
+    private function generateLocalImageTags(PageModel $page, /* mixed */ $image, array &$tags): void
+    {
+        if (!($image instanceof File)) {
+            $image = new File($image);
+        }
+
+        $url = $this->generateImageUrl($page, $image->path);
+
+        // Add the first image as a thumbnail (e.g., for Google search results)
+        if (0 === \count($tags)) {
+            $tags[] = sprintf('<meta name="thumbnail" content="%s">', $url);
+        }
+
+        $tags[] = sprintf('<meta property="og:image" content="%s">', $url);
+
+        // Add the dimension tags
+        if ($image->width > 0 && $image->height > 0) {
+            $tags[] = sprintf('<meta property="og:image:width" content="%s">', $image->width);
+            $tags[] = sprintf('<meta property="og:image:height" content="%s">', $image->height);
+        }
     }
 
     /**
