@@ -51,12 +51,6 @@ class ImageGenerator
 
         $settings['size'] = StringUtil::deserialize($settings['size']);
         $settings['resize'] = StringUtil::deserialize($settings['resize']);
-
-        // Limit the images
-        if ($settings['limit'] > 0) {
-            $images = \array_slice($images, 0, (int) $settings['limit']);
-        }
-
         $return = [];
 
         foreach ($images as $image) {
@@ -80,6 +74,11 @@ class ImageGenerator
                 'type' => self::TYPE_LOCAL,
                 'file' => $this->resizeImage($file, $settings),
             ];
+        }
+
+        // Limit the images
+        if ($settings['limit'] > 0) {
+            $return = \array_slice($return, 0, (int) $settings['limit']);
         }
 
         return $return;
