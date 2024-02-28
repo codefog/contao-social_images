@@ -19,4 +19,4 @@ services:
     Codefog\SocialImagesBundle\ImageGenerator:
         $assetsContext: '@contao.assets.assets_context'
         $filesContext: '@contao.assets.files_context'
-        $imageFactory: '@contao.image.image_factory'
+        $imageFactory: '@contao.image.factory'
